@@ -1,0 +1,28 @@
+<h1>List Of Leaves</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<p *ngIf="!leaves"><em>Loading...</em></p>
+
+<table class='table' *ngIf="leaves">
+    <thead>
+        <tr>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Project</th>
+            <th>Manager</th>
+            <th>Leave Type</th>
+            <th>Number of days</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let leave of leaves">
+            <td>{{ leave.StartDate | date }}</td>
+            <td>{{ leave.EndDate | date }}</td>
+            <td>{{ leave.Project }}</td>
+            <td>{{ leave.EnagementManager }}</td>
+            <td>{{ leave.LeaveType }}</td>
+            <td>{{ leave.NumberOfDays }}</td>
+        </tr>
+    </tbody>
+</table>
