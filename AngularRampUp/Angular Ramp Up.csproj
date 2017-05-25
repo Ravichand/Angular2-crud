@@ -1,6 +1,6 @@
 ﻿<Project ToolsVersion="15.0" Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+   <TargetFramework>netcoreapp1.1</TargetFramework>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <IsPackable>false</IsPackable>
     <ApplicationInsightsResourceId>/subscriptions/11513e6d-1050-44e9-a2f6-c12f1884cad5/resourcegroups/agSouthIndia/providers/microsoft.insights/components/AngularRampUp</ApplicationInsightsResourceId>
