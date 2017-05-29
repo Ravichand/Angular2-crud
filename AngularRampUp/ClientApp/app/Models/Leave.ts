@@ -1,4 +1,5 @@
-﻿export class Leave {
+﻿export interface ILeave {
+
     LeaveType: string;
     StartDate: Date;
     EndDate: Date;

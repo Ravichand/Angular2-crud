@@ -1,18 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
-import { Leave } from '../../Models/Leave';
+import { ILeave } from "../../Models/Leave";
+import { LeaveFetchService } from "../../Services/LeavesFetch.service";
 
 @Component({
     selector: 'fetchdata',
     templateUrl: './fetchdata.component.html'
 })
-export class FetchDataComponent {
-    leaves: Leave[];
+export class FetchDataComponent implements OnInit {
 
-    constructor(http: Http) {
-        http.get('http://angularrampupapi.azurewebsites.net/api/leaves').subscribe(result => {
-            console.log(result);
-            this.leaves = result.json() as Leave[];
-        });
+    leaves: ILeave[];
+    errorMessage: string;
+
+    constructor(private _leaveService: LeaveFetchService) {
+    
+    }
+    ngOnInit(): void {
+        this._leaveService.getLeaves()
+        .subscribe(leaves => this.leaves = leaves,
+        error => this.errorMessage = <any>error);
     }
 }
