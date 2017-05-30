@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UniversalModule } from 'angular2-universal';
+
+//installed packages
+import { DatePickerModule } from 'ng2-datepicker';
+
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { LeaveFetchService } from './Services/LeavesFetch.service';
+
+import { OnlyNumber } from './directives/onlynumber.directive';
 
 @NgModule({
     bootstrap: [ AppComponent ],
@@ -15,10 +21,12 @@ import { LeaveFetchService } from './Services/LeavesFetch.service';
         NavMenuComponent,
         CounterComponent,
         FetchDataComponent,
-        HomeComponent
+        HomeComponent,
+        OnlyNumber
     ],
     providers: [LeaveFetchService],
     imports: [
+        DatePickerModule,
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
