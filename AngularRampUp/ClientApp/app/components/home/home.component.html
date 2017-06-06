@@ -1,70 +1,82 @@
 <h1>Apply Leave</h1>
 <p>You Can Apply Leave here.</p>
 
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" (click)="close()">&times;</button>
+            
 
-
-<form #form="ngForm" novalidate class="leaveapplyform">
-    <!--Employee Name-->
-    <div class="form-group" [class.has-error]="empName.invalid && empName.touched">
-        <label class="control-label">Manager Name</label>
-        <input #empName="ngModel" required type="text" class="form-control" placeholder="Enter Name" name="empName"
-               [(ngModel)]="model.empName">
-        <div *ngIf="empName.invalid && empName.touched" class="alert alert-danger">Shouldn't be blank</div>
-    </div>
-
-    <!-- Project Name -->
-    <div class="form-group" [class.has-error]="projName.invalid && projName.touched">
-        <label class="control-label">Project Name</label>
-        <input #projName="ngModel" required type="text" class="form-control" placeholder="Enter project Name" name="projName"
-               [(ngModel)]="model.projName">
-        <div *ngIf="projName.invalid && projName.touched" class="alert alert-danger">Shouldn't be blank</div>
-    </div>
-
-    <!--leave Type-->
-    <div class="form-group" [class.has-error]="hasLeaveTypeError">
-        <label class="control-label">Leave Type</label>
-        <select class="form-control" #leaveType name="leaveType"
-                (blur)="validateLeaveType(leaveType.value)"
-                (change)="validateLeaveType(leaveType.value)"
-                [(ngModel)]="model.leaveType">
-            <option value="default">Select a Leave Type...</option>
-            <option *ngFor="let leave of leaves">
-                {{leave}}
-            </option>
-        </select>
-    </div>
-
-    
-
-    <!--Start Date-->
-    <div class="form-group">
-        <label class="control-label">Start Date</label>
-        <div class="datepicker">
-            <ng2-datepicker [options]="options" name="startDate" [(ngModel)]="model.startDate"></ng2-datepicker>
         </div>
-    </div>
+        <div class="modal-body">
 
-    <!--End Date-->
-    <div class="form-group">
-        <label class="control-label">End Date</label>
-        <div class="datepicker">
-            <ng2-datepicker [options]="options" name="endDate" [(ngModel)]="model.endDate"></ng2-datepicker>
+            <form #form="ngForm" novalidate class="leaveapplyform" *ngIf="!isResetting" (ngSubmit)="saveNewLeave(newLeaveForm.value)">
+                <!--Employee Name-->
+                <div class="form-group" [class.has-error]="empName.invalid && empName.touched">
+                    <label class="control-label">Manager Name</label>
+                    <input #empName="ngModel" required type="text" class="form-control" placeholder="Enter Name" name="empName"
+                           [(ngModel)]="model.empName">
+                    <div *ngIf="empName.invalid && empName.touched" class="alert alert-danger">Shouldn't be blank</div>
+                </div>
+
+                <!-- Project Name -->
+                <div class="form-group" [class.has-error]="projName.invalid && projName.touched">
+                    <label class="control-label">Project Name</label>
+                    <input #projName="ngModel" required type="text" class="form-control" placeholder="Enter project Name" name="projName"
+                           [(ngModel)]="model.projName">
+                    <div *ngIf="projName.invalid && projName.touched" class="alert alert-danger">Shouldn't be blank</div>
+                </div>
+
+                <!--leave Type-->
+                <div class="form-group" [class.has-error]="hasLeaveTypeError">
+                    <label class="control-label">Leave Type</label>
+                    <select class="form-control" #leaveType name="leaveType"
+                            (blur)="validateLeaveType(leaveType.value)"
+                            (change)="validateLeaveType(leaveType.value)"
+                            [(ngModel)]="model.leaveType">
+                        <option value="default">Select a Leave Type...</option>
+                        <option *ngFor="let leave of leaves">
+                            {{leave}}
+                        </option>
+                    </select>
+                </div>
+
+                <!--Start Date-->
+                <div class="form-group">
+                    <label class="control-label">Start Date</label>
+                    <div class="datepicker">
+                        <ng2-datepicker [options]="options" name="startDate" [(ngModel)]="model.startDate"></ng2-datepicker>
+                    </div>
+                </div>
+
+                <!--End Date-->
+                <div class="form-group">
+                    <label class="control-label">End Date</label>
+                    <div class="datepicker">
+                        <ng2-datepicker [options]="options" name="endDate" [(ngModel)]="model.endDate"></ng2-datepicker>
+                    </div>
+                </div>
+
+                <!--No of Days-->
+                <div class="form-group" [class.has-error]="noOfDays.invalid && noOfDays.touched">
+                    <label class="control-label">Number of Days</label>
+                    <input #noOfDays="ngModel" required class="form-control" placeholder="Enter number of days" name="noOfDays"
+                           [(ngModel)]="model.noOfDays" OnlyNumber="true">
+                    <div *ngIf="noOfDays.invalid && noOfDays.touched" class="alert alert-danger">Shouldn't be blank</div>
+                </div>
+
+                <input type="submit" value="Submit" class="btn btn-primary" />
+                <input type="reset" value="Clear" class="btn" (click)="clearSearch()" />
+            </form>
         </div>
-    </div>
-    
+        
 
-    <!--No of Days-->
-    <div class="form-group" [class.has-error]="noOfDays.invalid && noOfDays.touched">
-        <label class="control-label">Number of Days</label>
-        <input #noOfDays="ngModel" required class="form-control" placeholder="Enter number of days" name="noOfDays"
-               [(ngModel)]="model.noOfDays" OnlyNumber="true">
-        <div *ngIf="noOfDays.invalid && noOfDays.touched" class="alert alert-danger">Shouldn't be blank</div>
     </div>
 
-    <input type="submit" value="Submit" class="btn btn-primary" />
-</form>
+</div>`
+
 
 <!--<p>{{model | json}}</p>
-<p>{{form.value | json}}</p>
+<p>{{form.value |
+ json}}</p>
 -->
-

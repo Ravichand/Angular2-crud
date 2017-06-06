@@ -1,0 +1,49 @@
+<h1>List of Leaves</h1>
+
+<div class="pull-right">
+    <button class="btn btn-default" (click)=showConfirm()>Apply Leave</button>
+</div>
+
+<p *ngIf="!leaves"><em>Loading...</em></p>
+
+<table class='table table-striped table-bordered table-responsive' *ngIf="leaves">
+    <thead>
+        <tr>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Project</th>
+            <th>Manager</th>
+            <th>Leave Type</th>
+            <th>Number of days</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let leave of leaves">
+
+            <td *ngIf="!leave.isEdit">{{ leave.StartDate | date }}</td>
+            <td *ngIf="leave.isEdit"><input type="text" [(ngModel)]=" leave.StartDate" /> </td>
+
+            <td *ngIf="!leave.isEdit">{{ leave.EndDate | date }}</td>
+            <td *ngIf="leave.isEdit"><input type="text" [(ngModel)]=" leave.EndDate" /> </td>
+
+            <td *ngIf="!leave.isEdit">{{ leave.Project }}</td>
+            <td *ngIf="leave.isEdit"><input type="text" [(ngModel)]="leave.Project" /> </td>
+
+            <td *ngIf="!leave.isEdit">{{ leave.EnagementManager }}</td>
+            <td *ngIf="leave.isEdit"><input type="text" [(ngModel)]="leave.EnagementManager" /> </td>
+
+            <td *ngIf="!leave.isEdit">{{ leave.LeaveType }}</td>
+            <td *ngIf="leave.isEdit"><input type="text" [(ngModel)]="leave.LeaveType" /> </td>
+
+            <td *ngIf="!leave.isEdit">{{ leave.NumberOfDays }}</td>
+            <td *ngIf="leave.isEdit"><input type="text" [(ngModel)]="leave.NumberOfDays" /> </td>
+
+            <td>
+                <input *ngIf="!leave.isEdit" type="button" (click)="editFields(leave)" class="btn btn-primary" value="Edit" />
+                <input *ngIf="leave.isEdit" type="button" (click)="saveField(leave)" class="btn btn-primary" value="Save" />
+                <input *ngIf="leave.isEdit" type="reset" (click)="cancelField(leave)"  class="btn" value="Cancel" />
+            </td>
+
+        </tr>
+    </tbody>
+</table>

@@ -1,13 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Employee } from '../../Models/employee.model';
 
 @Component({
     selector: 'home',
-    templateUrl: './home.component.html'
+    templateUrl: './home.component.html',
 })
 export class HomeComponent {
+
+    @Input() employee: Employee;
+
+    public newLeaveForm: FormGroup;
+    public submitted: boolean;
+
     leaves = ['Earned Leave', 'Casual Leave', 'Bereavement Leaves', 'Parental Leaves', 'Work From Home']
-    model = new Employee('', '', 'default', '', '','');
+    model = new Employee('', '', 'default', '', '', '');
 
     hasLeaveTypeError = false;
 

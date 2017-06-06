@@ -6,5 +6,6 @@
     Project: string;
     EngagmentManager: string;
     NumberOfDays: number;
+    isEdit: boolean;
     
 }
