@@ -12,11 +12,11 @@
 
             <form #leaveForm="ngForm" novalidate class="leaveapplyform" *ngIf="!isResetting" (ngSubmit)="saveNewLeave(leaveForm.value)">
                 <!--Employee Name-->
-                <div class="form-group" [class.has-error]="EngagmentManager.invalid && EngagmentManager.touched">
+                <div class="form-group" [class.has-error]="EngagementManager.invalid && EngagementManager.touched">
                     <label class="control-label">Manager Name</label>
-                    <input #EngagmentManager="ngModel" required type="text" class="form-control" placeholder="Enter Name" name="EngagmentManager"
-                           [(ngModel)]="leave.EngagmentManager">
-                    <div *ngIf="EngagmentManager.invalid && EngagmentManager.touched" class="alert alert-danger">Shouldn't be blank</div>
+                    <input #EngagementManager="ngModel" required type="text" class="form-control" placeholder="Enter Name" name="EngagementManager"
+                           [(ngModel)]="leave.EngagementManager">
+                    <div *ngIf="EngagementManager.invalid && EngagementManager.touched" class="alert alert-danger">Shouldn't be blank</div>
                 </div>
 
                 <!-- Project Name -->
@@ -30,7 +30,7 @@
                 <!--leave Type-->
                 <div class="form-group" [class.has-error]="hasLeaveTypeError">
                     <label class="control-label">Leave Type</label>
-                    <select class="form-control" #LeaveType name="leaveType"
+                    <select class="form-control" #LeaveType name="LeaveType"
                             (blur)="validateLeaveType(LeaveType.value)"
                             (change)="validateLeaveType(LeaveType.value)"
                             [(ngModel)]="leave.LeaveType">

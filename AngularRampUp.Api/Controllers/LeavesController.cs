@@ -4,18 +4,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AngularRampUp.Api.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace AngularRampUp.Api.Controllers
 {
     [Route("api/[controller]")]
     public class LeavesController : Controller
     {
+        NeuPortalContext dbContext;
+        public LeavesController(NeuPortalContext db)
+        {
+            dbContext = db;
+        }
+        Leave l;
+        List<Leave> leaves;
+       
         // GET api/values
         [HttpGet]
         public IEnumerable<Leave> Get()
         {
-            var l = new Leave();
-            return new List<Leave> { l.GetLeave(1), l.GetLeave(2), l.GetLeave(3), l.GetLeave(4), l.GetLeave(5) };
+            return dbContext.Leave.ToList();
         }
 
         // GET api/values/5
@@ -27,8 +35,12 @@ namespace AngularRampUp.Api.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public Leave Post([FromBody]Leave value)
         {
+            //var leave = Newtonsoft.Json.JsonConvert.DeserializeObject<Leave>(value);
+            dbContext.Leave.Add(value);
+            dbContext.SaveChanges();
+            return value;
         }
 
         // PUT api/values/5
@@ -41,6 +53,8 @@ namespace AngularRampUp.Api.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            dbContext.Leave.Remove(dbContext.Leave.First(x => x.Id == id));
+            dbContext.SaveChanges();
         }
     }
 }

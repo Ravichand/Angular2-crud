@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using AngularRampUp.Api.Models;
 
 namespace AngularRampUp.Api
 {
@@ -31,7 +33,9 @@ namespace AngularRampUp.Api
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
-            }); 
+            });
+            var connection = @"Server = tcp:neuportal.database.windows.net,1433; Initial Catalog = NeuPortal; Persist Security Info = False; User ID = neuuser; Password = Pass@word1; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;";
+            services.AddDbContext<NeuPortalContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

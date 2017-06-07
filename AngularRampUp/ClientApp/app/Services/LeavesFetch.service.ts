@@ -17,7 +17,8 @@ export class LeaveFetchService {
 //    leaves: Leave[];
     constructor (private http: Http) {}
 
-    private leavesUrl = 'http://angularrampupapi.azurewebsites.net/api/leaves';
+    //private leavesUrl = 'http://angularrampupapi.azurewebsites.net/api/leaves';
+    private leavesUrl = 'http://localhost:21076/api/leaves';
 
 
     getLeaves(): Observable<Leave[]> {
@@ -27,13 +28,44 @@ export class LeaveFetchService {
 
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
-    saveLeave(leave: Leave) {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
+    saveLeave(leave: any) {
+        
+        let headers = new Headers({
+            'Content-Type':
+            'application/json; charset=utf-8'
+        });
         let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.leavesUrl, leave, options)
+        let obj:Leave = leave;
+        obj.StartDate = leave.StartDate.formatted;
+        obj.EndDate = leave.EndDate.formatted;
+        let body = JSON.stringify(obj);
+        return this.http.post(this.leavesUrl, body, options)
             .toPromise()
             .then(res => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
+    deleteLeave(id: number) {
+        return this.http.delete(this.leavesUrl+'?id=' +id).toPromise().catch(this.handleErrorPromise);
+    }
+
+    protected handleErrorPromise(error: any): Promise<void> {
+        try {
+            error = JSON.parse(error._body);
+        } catch (e) {
+        }
+
+        let errMsg = error.errorMessage
+            ? error.errorMessage
+            : error.message
+                ? error.message
+                : error._body
+                    ? error._body
+                    : error.status
+                        ? `${error.status} - ${error.statusText}`
+                        : 'unknown server error';
+
+        console.error(errMsg);
+        return Promise.reject(errMsg);
+    }
 }

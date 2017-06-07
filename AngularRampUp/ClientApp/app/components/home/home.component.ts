@@ -39,7 +39,7 @@ export class HomeComponent {
 
     saveNewLeave(model) {
         this._leaveService.saveLeave(model)
-            .then(res => {
+            .then(() => {
                 console.log("Leave Created")
             });
     }

@@ -19,7 +19,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let leave of leaves">
-
+            <td *ngIf="false"><input type="text" [(ngModel)]=" leave.Id" /> </td>
             <td *ngIf="!leave.isEdit">{{ leave.StartDate | date }}</td>
             <td *ngIf="leave.isEdit"><input type="text" [(ngModel)]=" leave.StartDate" /> </td>
 
@@ -29,8 +29,8 @@
             <td *ngIf="!leave.isEdit">{{ leave.Project }}</td>
             <td *ngIf="leave.isEdit"><input type="text" [(ngModel)]="leave.Project" /> </td>
 
-            <td *ngIf="!leave.isEdit">{{ leave.EnagementManager }}</td>
-            <td *ngIf="leave.isEdit"><input type="text" [(ngModel)]="leave.EnagementManager" /> </td>
+            <td *ngIf="!leave.isEdit">{{ leave.EngagementManager }}</td>
+            <td *ngIf="leave.isEdit"><input type="text" [(ngModel)]="leave.EngagementManager" /> </td>
 
             <td *ngIf="!leave.isEdit">{{ leave.LeaveType }}</td>
             <td *ngIf="leave.isEdit"><input type="text" [(ngModel)]="leave.LeaveType" /> </td>
@@ -39,9 +39,7 @@
             <td *ngIf="leave.isEdit"><input type="text" [(ngModel)]="leave.NumberOfDays" /> </td>
 
             <td>
-                <input *ngIf="!leave.isEdit" type="button" (click)="editFields(leave)" class="btn btn-primary" value="Edit" />
-                <input *ngIf="leave.isEdit" type="button" (click)="saveField(leave)" class="btn btn-primary" value="Save" />
-                <input *ngIf="leave.isEdit" type="reset" (click)="cancelField(leave)"  class="btn" value="Cancel" />
+                <input type="button" (click)="deleteLeave(leave)" class="btn btn-primary" value="Delete" />
             </td>
 
         </tr>

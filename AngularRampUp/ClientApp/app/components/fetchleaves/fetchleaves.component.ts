@@ -31,7 +31,7 @@ export class FetchLeaveComponent implements OnInit {
             error => this.errorMessage = <any>error);
     }
     //submitted = false;
-    
+
     showConfirm() {
         let disposable = this.dialogService.addDialog(ConfirmComponent, {
             title: 'Confirm title',
@@ -52,11 +52,15 @@ export class FetchLeaveComponent implements OnInit {
             disposable.unsubscribe();
         }, 10000);
     }
-    
+
 
     editFields(leave: Leave): void {
-        
+
         leave.isEdit = true;
+    }
+
+    deleteLeave(leave) {
+        this._leaveService.deleteLeave(leave.Id).then(() => { console.log("Leave Deleted") });
     }
 
     saveField(leave: Leave): void {
@@ -67,9 +71,9 @@ export class FetchLeaveComponent implements OnInit {
 
     cancelField(leave): void {
         leave.isEdit = !leave.isEdit;
-        
+
     }
 
-    
-    
+
+
 }
