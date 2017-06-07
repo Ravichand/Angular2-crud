@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Employee } from '../../Models/employee.model';
+import { Leave } from '../../Models/Leave';
+import { LeaveFetchService } from "../../Services/LeavesFetch.service";
+
 
 @Component({
     selector: 'home',
@@ -8,16 +10,17 @@ import { Employee } from '../../Models/employee.model';
 })
 export class HomeComponent {
 
-    @Input() employee: Employee;
+    @Input() leave: Leave = new Leave();
 
     public newLeaveForm: FormGroup;
     public submitted: boolean;
 
     leaves = ['Earned Leave', 'Casual Leave', 'Bereavement Leaves', 'Parental Leaves', 'Work From Home']
-    model = new Employee('', '', 'default', '', '', '');
 
     hasLeaveTypeError = false;
+    constructor(private _leaveService: LeaveFetchService) {
 
+    }
     // validatePrimaryLanguage(event){
     //   if(this.model.primaryLanguage==='default')
     //   this.hasPrimaryLanguageError=true;
@@ -33,6 +36,13 @@ export class HomeComponent {
     }
 
     listOfLeaves = [];
+
+    saveNewLeave(model) {
+        this._leaveService.saveLeave(model)
+            .then(res => {
+                console.log("Leave Created")
+            });
+    }
 
     // submitForm(value){
     //   var employe = <Employee>value;

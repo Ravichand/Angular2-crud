@@ -1,7 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-
-import { ILeave } from '../Models/Leave';
+import { Headers, RequestOptions } from '@angular/http';
+import { Leave } from '../Models/Leave';
 
 import { Observable } from 'rxjs/Rx';
 
@@ -19,11 +19,20 @@ export class LeaveFetchService {
 
     private leavesUrl = 'http://angularrampupapi.azurewebsites.net/api/leaves';
 
-    getLeaves(): Observable<ILeave[]> {
+
+    getLeaves(): Observable<Leave[]> {
         return this.http.get(this.leavesUrl)
 
-            .map((response: Response) => <ILeave[]>response.json())
+            .map((response: Response) => <Leave[]>response.json())
 
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+    saveLeave(leave: Leave) {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.leavesUrl, leave, options)
+            .toPromise()
+            .then(res => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 

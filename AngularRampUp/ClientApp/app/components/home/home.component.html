@@ -10,30 +10,30 @@
         </div>
         <div class="modal-body">
 
-            <form #form="ngForm" novalidate class="leaveapplyform" *ngIf="!isResetting" (ngSubmit)="saveNewLeave(newLeaveForm.value)">
+            <form #leaveForm="ngForm" novalidate class="leaveapplyform" *ngIf="!isResetting" (ngSubmit)="saveNewLeave(leaveForm.value)">
                 <!--Employee Name-->
-                <div class="form-group" [class.has-error]="empName.invalid && empName.touched">
+                <div class="form-group" [class.has-error]="EngagmentManager.invalid && EngagmentManager.touched">
                     <label class="control-label">Manager Name</label>
-                    <input #empName="ngModel" required type="text" class="form-control" placeholder="Enter Name" name="empName"
-                           [(ngModel)]="model.empName">
-                    <div *ngIf="empName.invalid && empName.touched" class="alert alert-danger">Shouldn't be blank</div>
+                    <input #EngagmentManager="ngModel" required type="text" class="form-control" placeholder="Enter Name" name="EngagmentManager"
+                           [(ngModel)]="leave.EngagmentManager">
+                    <div *ngIf="EngagmentManager.invalid && EngagmentManager.touched" class="alert alert-danger">Shouldn't be blank</div>
                 </div>
 
                 <!-- Project Name -->
-                <div class="form-group" [class.has-error]="projName.invalid && projName.touched">
+                <div class="form-group" [class.has-error]="Project.invalid && Project.touched">
                     <label class="control-label">Project Name</label>
-                    <input #projName="ngModel" required type="text" class="form-control" placeholder="Enter project Name" name="projName"
-                           [(ngModel)]="model.projName">
-                    <div *ngIf="projName.invalid && projName.touched" class="alert alert-danger">Shouldn't be blank</div>
+                    <input #Project="ngModel" required type="text" class="form-control" placeholder="Enter project Name" name="Project"
+                           [(ngModel)]="leave.Project">
+                    <div *ngIf="Project.invalid && Project.touched" class="alert alert-danger">Shouldn't be blank</div>
                 </div>
 
                 <!--leave Type-->
                 <div class="form-group" [class.has-error]="hasLeaveTypeError">
                     <label class="control-label">Leave Type</label>
-                    <select class="form-control" #leaveType name="leaveType"
-                            (blur)="validateLeaveType(leaveType.value)"
-                            (change)="validateLeaveType(leaveType.value)"
-                            [(ngModel)]="model.leaveType">
+                    <select class="form-control" #LeaveType name="leaveType"
+                            (blur)="validateLeaveType(LeaveType.value)"
+                            (change)="validateLeaveType(LeaveType.value)"
+                            [(ngModel)]="leave.LeaveType">
                         <option value="default">Select a Leave Type...</option>
                         <option *ngFor="let leave of leaves">
                             {{leave}}
@@ -45,7 +45,7 @@
                 <div class="form-group">
                     <label class="control-label">Start Date</label>
                     <div class="datepicker">
-                        <ng2-datepicker [options]="options" name="startDate" [(ngModel)]="model.startDate"></ng2-datepicker>
+                        <ng2-datepicker [options]="options" name="StartDate" [(ngModel)]="leave.StartDate"></ng2-datepicker>
                     </div>
                 </div>
 
@@ -53,16 +53,16 @@
                 <div class="form-group">
                     <label class="control-label">End Date</label>
                     <div class="datepicker">
-                        <ng2-datepicker [options]="options" name="endDate" [(ngModel)]="model.endDate"></ng2-datepicker>
+                        <ng2-datepicker [options]="options" name="EndDate" [(ngModel)]="leave.EndDate"></ng2-datepicker>
                     </div>
                 </div>
 
                 <!--No of Days-->
-                <div class="form-group" [class.has-error]="noOfDays.invalid && noOfDays.touched">
+                <div class="form-group" [class.has-error]="NumberOfDays.invalid && NumberOfDays.touched">
                     <label class="control-label">Number of Days</label>
-                    <input #noOfDays="ngModel" required class="form-control" placeholder="Enter number of days" name="noOfDays"
-                           [(ngModel)]="model.noOfDays" OnlyNumber="true">
-                    <div *ngIf="noOfDays.invalid && noOfDays.touched" class="alert alert-danger">Shouldn't be blank</div>
+                    <input #NumberOfDays="ngModel" required class="form-control" placeholder="Enter number of days" name="NumberOfDays"
+                           [(ngModel)]="leave.NumberOfDays" OnlyNumber="true">
+                    <div *ngIf="NumberOfDays.invalid && NumberOfDays.touched" class="alert alert-danger">Shouldn't be blank</div>
                 </div>
 
                 <input type="submit" value="Submit" class="btn btn-primary" />

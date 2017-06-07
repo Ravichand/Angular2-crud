@@ -1,11 +1,10 @@
-﻿export interface ILeave {
-
-    LeaveType: string;
-    StartDate: Date;
-    EndDate: Date;
-    Project: string;
-    EngagmentManager: string;
-    NumberOfDays: number;
-    isEdit: boolean;
+﻿export class Leave {
+    public LeaveType: string;
+    public StartDate: Date;
+    public EndDate: Date;
+    public Project: string;
+    public EngagmentManager: string;
+    public NumberOfDays: number;
+    public isEdit: boolean;
     
 }

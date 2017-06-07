@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, SimpleChange } from '@angular/core';
 import { Http } from '@angular/http';
-import { ILeave } from "../../Models/Leave";
+import { Leave } from "../../Models/Leave";
 import { LeaveFetchService } from "../../Services/LeavesFetch.service";
 
 import { ConfirmComponent } from '../modal/confirm.component';
@@ -12,7 +12,7 @@ import { DialogService } from "ng2-bootstrap-modal";
 })
 export class FetchLeaveComponent implements OnInit {
 
-    leaves: ILeave[];
+    leaves: Leave[];
     errorMessage: string;
 
 
@@ -54,12 +54,12 @@ export class FetchLeaveComponent implements OnInit {
     }
     
 
-    editFields(leave: ILeave): void {
+    editFields(leave: Leave): void {
         
         leave.isEdit = true;
     }
 
-    saveField(leave: ILeave): void {
+    saveField(leave: Leave): void {
         leave.isEdit = false;
 
         //api call to save data
