@@ -20,6 +20,7 @@ module.exports = (env) => {
                 '@angular/compiler',
                 '@angular/core',
                 '@angular/http',
+                '@angular/animations',
                 '@angular/platform-browser',
                 '@angular/platform-browser-dynamic',
                 '@angular/router',

@@ -10,15 +10,14 @@ import 'rxjs/add/operator/catch';
 
 
 
-
 @Injectable()
-export class LeaveFetchService {
-    
-//    leaves: Leave[];
-    constructor (private http: Http) {}
+export class LeaveService {
 
-    //private leavesUrl = 'http://angularrampupapi.azurewebsites.net/api/leaves';
-    private leavesUrl = 'http://localhost:21076/api/leaves';
+    //    leaves: Leave[];
+    constructor(private http: Http) { }
+
+    private leavesUrl = 'http://angularrampupapi.azurewebsites.net/api/leaves';
+    //private leavesUrl = 'http://localhost:21076/api/leaves';
 
 
     getLeaves(): Observable<Leave[]> {
@@ -26,32 +25,40 @@ export class LeaveFetchService {
 
             .map((response: Response) => <Leave[]>response.json())
 
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+            .catch(this.handleErrorPromise);
     }
     saveLeave(leave: any) {
-        
+
         let headers = new Headers({
             'Content-Type':
             'application/json; charset=utf-8'
         });
         let options = new RequestOptions({ headers: headers });
-        let obj:Leave = leave;
+        let obj: Leave = leave;
         obj.StartDate = leave.StartDate.formatted;
         obj.EndDate = leave.EndDate.formatted;
         let body = JSON.stringify(obj);
         return this.http.post(this.leavesUrl, body, options)
             .toPromise()
-            .then(res => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+            .then(res => {
+                //this.toasterService.success('Leave Saved', 'Leave Saved Successfully', true, 1000);
+                res.json()
+            })
+            .catch(this.handleErrorPromise);
     }
 
     deleteLeave(id: number) {
-        return this.http.delete(this.leavesUrl+'?id=' +id).toPromise().catch(this.handleErrorPromise);
+        return this.http.delete(this.leavesUrl + '/' + id)
+            .toPromise()
+            .then(res => {
+                //this.toasterService.success('Leave Deleted', 'Leave Deleted Successfully', true, 1000);
+            }).catch(this.handleErrorPromise);
     }
 
     protected handleErrorPromise(error: any): Promise<void> {
         try {
             error = JSON.parse(error._body);
+            //this.toasterService.error('Fialed to save leave', error.message, true, 2000);
         } catch (e) {
         }
 

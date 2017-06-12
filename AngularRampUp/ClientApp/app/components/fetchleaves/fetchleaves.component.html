@@ -1,8 +1,13 @@
 <h1>List of Leaves</h1>
 
-<div class="pull-right">
-    <button class="btn btn-default" (click)=showConfirm()>Apply Leave</button>
+<div class="editformsection">
+
+    <leave-form (cancel)="onEditCancel()" (save)="onEditSave()" [showLeave]="showLeave"></leave-form>
+
 </div>
+<!--<div class="pull-right">
+    <button class="btn btn-default" (click)=showConfirm()>Apply Leave</button>
+</div>-->
 
 <p *ngIf="!leaves"><em>Loading...</em></p>
 
@@ -15,6 +20,7 @@
             <th>Manager</th>
             <th>Leave Type</th>
             <th>Number of days</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -23,7 +29,7 @@
             <td *ngIf="!leave.isEdit">{{ leave.StartDate | date }}</td>
             <td *ngIf="leave.isEdit"><input type="text" [(ngModel)]=" leave.StartDate" /> </td>
 
-            <td *ngIf="!leave.isEdit">{{ leave.EndDate | date }}</td>
+            <td *ngIf="!leave.isEdit">{{ leave.EndDate | date  }}</td>
             <td *ngIf="leave.isEdit"><input type="text" [(ngModel)]=" leave.EndDate" /> </td>
 
             <td *ngIf="!leave.isEdit">{{ leave.Project }}</td>
@@ -40,8 +46,13 @@
 
             <td>
                 <input type="button" (click)="deleteLeave(leave)" class="btn btn-primary" value="Delete" />
+                <input type="button" (click)="edit(leave)" class="btn btn-primary" value="Edit" />
             </td>
 
         </tr>
     </tbody>
 </table>
+<div class="editformsection">
+    <delete-leave (cancel)="onDeleteCancel()" (delete)="onDeleteConfirm($event)">
+    </delete-leave>
+</div>

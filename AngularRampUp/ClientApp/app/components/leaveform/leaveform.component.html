@@ -1,13 +1,6 @@
-<h1>Apply Leave</h1>
-<p>You Can Apply Leave here.</p>
-
-<div class="modal-dialog">
+﻿<div class="modal-dialog" *ngIf="showLeave">
     <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" (click)="close()">&times;</button>
-            
-
-        </div>
+        
         <div class="modal-body">
 
             <form #leaveForm="ngForm" novalidate class="leaveapplyform" *ngIf="!isResetting" (ngSubmit)="saveNewLeave(leaveForm.value)">
@@ -45,7 +38,7 @@
                 <div class="form-group">
                     <label class="control-label">Start Date</label>
                     <div class="datepicker">
-                        <ng2-datepicker [options]="options" name="StartDate" [(ngModel)]="leave.StartDate"></ng2-datepicker>
+                        <ng2-datepicker required [options]="options" name="StartDate" [(ngModel)]="leave.StartDate"></ng2-datepicker>
                     </div>
                 </div>
 
@@ -53,9 +46,13 @@
                 <div class="form-group">
                     <label class="control-label">End Date</label>
                     <div class="datepicker">
-                        <ng2-datepicker [options]="options" name="EndDate" [(ngModel)]="leave.EndDate"></ng2-datepicker>
+                        <ng2-datepicker required [options]="options" name="EndDate" [(ngModel)]="leave.EndDate"></ng2-datepicker>
                     </div>
                 </div>
+                <div *ngIf="error.isError" class="alert alert-danger">
+                    {{ error.errorMessage }}
+                </div> 
+
 
                 <!--No of Days-->
                 <div class="form-group" [class.has-error]="NumberOfDays.invalid && NumberOfDays.touched">
@@ -64,19 +61,11 @@
                            [(ngModel)]="leave.NumberOfDays" OnlyNumber="true">
                     <div *ngIf="NumberOfDays.invalid && NumberOfDays.touched" class="alert alert-danger">Shouldn't be blank</div>
                 </div>
-
-                <input type="submit" value="Submit" class="btn btn-primary" />
-                <input type="reset" value="Clear" class="btn" (click)="clearSearch()" />
+                <div class="form-btns">
+                    <input type="submit" value="Submit" class="btn btn-primary" [disabled]="leaveForm.invalid" />
+                    <input type="reset" value="Cancel" class="btn" (click)="clearSearch()" />
+                </div>
             </form>
         </div>
-        
-
     </div>
-
-</div>`
-
-
-<!--<p>{{model | json}}</p>
-<p>{{form.value |
- json}}</p>
--->
+</div>
