@@ -38,7 +38,14 @@ namespace AngularRampUp.Api.Controllers
         public Leave Post([FromBody]Leave value)
         {
             //var leave = Newtonsoft.Json.JsonConvert.DeserializeObject<Leave>(value);
-            dbContext.Leave.Add(value);
+            if (value.Id == 0)
+            {
+                dbContext.Leave.Add(value);
+            }
+            else
+            {
+                dbContext.Entry(value).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            }
             dbContext.SaveChanges();
             return value;
         }

@@ -42,20 +42,24 @@ export class LeaveFormComponent {
     listOfLeaves = [];
 
     saveNewLeave(model) {
+        model.Id = this.leave.Id;
         let StartDate = model.StartDate.formatted;
-      //  alert(model.StartDate);
         let EndDate = model.EndDate.formatted;
         let formatedSD = new Date(StartDate);
         let today = new Date();
-        if ((StartDate < EndDate)) {
+        if ((StartDate > EndDate)) {
             this.error = {
                 isError: true, errorMessage: `End Date can't be before start date`
             };
-
         }
         if ((formatedSD < today)) {
             this.error = {
                 isError: true, errorMessage: 'select start date from today'
+            }
+        }
+        if ((EndDate < StartDate)) {
+            this.error = {
+                isError: true, errorMessage: `Seems like your vacation days are going backwards!!`
             }
         }
         else {

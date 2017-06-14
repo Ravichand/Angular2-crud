@@ -16,8 +16,8 @@ export class LeaveService {
     //    leaves: Leave[];
     constructor(private http: Http) { }
 
-    private leavesUrl = 'http://angularrampupapi.azurewebsites.net/api/leaves';
-    //private leavesUrl = 'http://localhost:21076/api/leaves';
+    //private leavesUrl = 'http://angularrampupapi.azurewebsites.net/api/leaves';
+    private leavesUrl = 'http://localhost:21076/api/leaves';
 
 
     getLeaves(): Observable<Leave[]> {

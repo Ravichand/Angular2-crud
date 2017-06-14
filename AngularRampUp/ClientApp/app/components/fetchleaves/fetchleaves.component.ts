@@ -6,6 +6,7 @@ import { LeaveService } from "../../Services/leave.service";
 import { DialogService } from "ng2-bootstrap-modal";
 import { DeleteLeaveComponent } from '../deleteleave/delete.leave.component';
 import { LeaveFormComponent } from '../leaveform/leaveform.component';
+import { DatePickerOptions, DateModel } from 'ng2-datepicker';
 
 @Component({
     selector: 'fetchdata',
@@ -32,8 +33,6 @@ export class FetchLeaveComponent implements OnInit {
 
     edit(leave) {
         this.showLeave = true;
-        leave.StartDate={ "day": "05", "month": "01", "year": "2017", "formatted": "05.01.2017", "momentObj": "2017-01-04T23:00:00.000Z" };
-
         this.leaveFormComponent.setLeave(leave);
     }
 
